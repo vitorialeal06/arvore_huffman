@@ -35,10 +35,5 @@ int main() {
     }
     char *encoded = encode_string(entrada, codes);
     printf("\nString codificada: %s\n", encoded);
-    free(encoded);
-    free_codes(codes);
-    liberarArvore(raiz);
-    free(freq);
-    liberarLista(lista);
-    return 0;
+   
 }
