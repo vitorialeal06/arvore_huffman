@@ -5,11 +5,12 @@
 
 int main() {
     TLinkedList *lista = create(); //lista
-    char entrada[100] = "o rato roeu"; //entrada
+    char entrada[] = "o rato roeu"; //entrada
     int *freq = tabela_frequencia(entrada); //mostrando freq
     int colunas;
     TNo *arvore;
     char **dicionario;
+    char* codificado;
 
     if (freq == NULL) 
         printf("Erro ao processar frequências.\n");
@@ -27,6 +28,14 @@ int main() {
     dicionario = aloca_dicionario(colunas);
     gerar_dicionario(dicionario,arvore," ", colunas);
     imprimir_dicionario(dicionario);
+
+    //codificar
+
+    codificado = codificar(dicionario, entrada);
+    printf("\n Texto codificado");
+
+
+
     
 
 /*    char *codes[27] = {NULL};

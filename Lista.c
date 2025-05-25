@@ -205,3 +205,67 @@ void imprimir_dicionario(char **dicionario){
         printf(" %3d = %s\n", i, dicionario[i]);
     }
 }
+
+//codifica
+
+int calcula_tamanho_string(char **dicionario, char *texto){
+    int i = 0, tam = 0;
+    while(texto[i] != '\0'){
+        tam = tam +strlen(dicionario[texto[i]]);
+        i++;
+    }
+    return tam+1;
+}
+
+char* codificar(char **dicionario, char *texto){
+    int i = 0;
+    int tam = calcula_tamanho_string(dicionario,texto);
+    char *codigo = calloc(tam, sizeof(char));
+
+    while(texto[i] != '\0'){
+        strcat(codigo,dicionario[texto[i]]);
+        i++;
+    }
+    return codigo;
+}
+
+//decodifica
+char* decode_string(TNo* raiz, char* encoded) {
+    if (!raiz || !encoded) return NULL;
+
+    size_t max_len = strlen(encoded) + 1;
+    char* decoded = malloc(max_len);
+    if (!decoded) {
+        printf("Erro ao alocar memória para decodificação\n");
+        exit(1);
+    }
+    decoded[0] = '\0';
+    size_t pos = 0;
+
+    TNo* atual = raiz;
+    for (size_t i = 0; encoded[i]; i++) {
+        if (encoded[i] == '0') {
+            atual = atual->left;
+        } else if (encoded[i] == '1') {
+            atual = atual->right;
+        } else {
+            printf("Erro: string codificada contém caractere inválido '%c'\n", encoded[i]);
+            free(decoded);
+            return NULL;
+        }
+
+        if (atual && atual->left == NULL && atual->right == NULL) {
+            decoded[pos++] = atual->caractere;
+            atual = raiz;
+        }
+    }
+    decoded[pos] = '\0';
+
+    decoded = realloc(decoded, pos + 1);
+    if (!decoded) {
+        printf("Erro ao realocar memória\n");
+        exit(1);
+    }
+
+    return decoded;
+}
