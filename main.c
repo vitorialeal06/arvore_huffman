@@ -1,5 +1,6 @@
 #include "Lista.h"
 #include "arvore.h"
+#include "huffman.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -9,7 +10,6 @@ int main() {
     int *freq = tabela_frequencia(entrada);
     if (freq == NULL) {
         printf("Erro ao processar frequências.\n");
-        liberarLista(lista);
         return 1;
     }
     preencher_lista(freq, lista);
@@ -17,8 +17,6 @@ int main() {
     TNo *raiz = build_huffman_tree(lista);
     if (raiz == NULL) {
         printf("Erro ao construir árvore de Huffman.\n");
-        free(freq);
-        liberarLista(lista);
         return 1;
     }
     char *codes[27] = {NULL};

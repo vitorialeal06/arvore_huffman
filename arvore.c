@@ -1,5 +1,5 @@
-#include "Lista.h"
 #include "arvore.h"
+#include "Lista.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,12 +18,6 @@ TNo* TNo_createNFill(char c, int freq) {
     return createNfill(c, freq);
 }
 
-void liberarArvore(TNo* no) {
-    if (no == NULL) return;
-    liberarArvore(no->left);
-    liberarArvore(no->right);
-    free(no);
-}
 
 int* tabela_frequencia(char entrada[]) {
     int *freq = (int *)malloc(27 * sizeof(int));

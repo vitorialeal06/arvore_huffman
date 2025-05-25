@@ -1,15 +1,15 @@
+#include "huffman.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "Lista.h"
-#include "arvore.h"
 
-TNo* build_huffman_tree(TLinkedList *lista) {
+
+TNo* build_huffman_tree(TLinkedList* lista) {
     while (lista->tamanho > 1) {
-        TNo *left = remove_first(lista);
-        TNo *right = remove_first(lista);
-        TNo *pai = createNfill('\0', left->freq + right->freq);
+        TNo* left = remove_first(lista);
+        TNo* right = remove_first(lista);
+        TNo* pai = createNfill('\0', left->freq + right->freq);
         if (pai == NULL) {
             printf("Erro ao alocar memória para nó pai.\n");
             exit(1);

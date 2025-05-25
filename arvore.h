@@ -11,5 +11,7 @@ typedef struct {
 BinTree* BinTree_create();
 TNo* TNo_createNFill(char c, int freq);
 void liberarArvore(TNo* no);
+void preencher_lista(int *freq, TLinkedList *lista);
+int* tabela_frequencia(char entrada[]);
 
 #endif

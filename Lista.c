@@ -89,13 +89,3 @@ void print(TLinkedList* list) {
         aux = aux->prox;
     }
 }
-
-void liberarLista(TLinkedList* lista) {
-    TNo* atual = lista->inicio;
-    while (atual != NULL) {
-        TNo* temp = atual;
-        atual = atual->prox;
-        free(temp);
-    }
-    free(lista);
-}
