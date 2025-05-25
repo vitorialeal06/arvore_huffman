@@ -1,27 +1,37 @@
 #include "Lista.h"
 #include "arvore.h"
-#include "huffman.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 int main() {
-    TLinkedList *lista = create();
-    char entrada[100] = "o rato roeu";
-    int *freq = tabela_frequencia(entrada);
-    if (freq == NULL) {
+    TLinkedList *lista = create(); //lista
+    char entrada[100] = "o rato roeu"; //entrada
+    int *freq = tabela_frequencia(entrada); //mostrando freq
+    int colunas;
+    TNo *arvore;
+    char **dicionario;
+
+    if (freq == NULL) 
         printf("Erro ao processar frequências.\n");
-        return 1;
-    }
+
+        //lista
     preencher_lista(freq, lista);
     print(lista);
-    TNo *raiz = build_huffman_tree(lista);
-    if (raiz == NULL) {
-        printf("Erro ao construir árvore de Huffman.\n");
-        return 1;
-    }
-    char *codes[27] = {NULL};
+
+        //arvore
+    arvore = build_huffman_tree(lista);
+    imprimir_arvore(arvore,0);
+
+        //dicionario
+    colunas = altura_arvore(arvore) + 1;
+    dicionario = aloca_dicionario(colunas);
+    gerar_dicionario(dicionario,arvore," ", colunas);
+    imprimir_dicionario(dicionario);
+    
+
+/*    char *codes[27] = {NULL};
     char code[100] = {0};
-    generate_codes(raiz, code, 0, codes);
+    generate_codes(arvore, code, 0, codes);
     printf("\nCódigos de Huffman:\n");
     for (int i = 0; i < 26; i++) {
         if (codes[i]) {
@@ -33,5 +43,5 @@ int main() {
     }
     char *encoded = encode_string(entrada, codes);
     printf("\nString codificada: %s\n", encoded);
-   
+*/
 }

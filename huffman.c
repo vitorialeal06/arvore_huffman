@@ -1,10 +1,12 @@
 #include "huffman.h"
+#include "Lista.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 
 
+/*
 TNo* build_huffman_tree(TLinkedList* lista) {
     while (lista->tamanho > 1) {
         TNo* left = remove_first(lista);
@@ -64,3 +66,5 @@ void free_codes(char *codes[27]) {
         }
     }
 }
+
+*/

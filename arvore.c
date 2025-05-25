@@ -1,5 +1,5 @@
-#include "arvore.h"
 #include "Lista.h"
+#include "arvore.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,6 +55,7 @@ int* tabela_frequencia(char entrada[]) {
     }
     printf("\n");
 
+    printf("tabela frequencia\n");
     for (int j = 0; j < 26; j++) {
         if (freq[j] > 0) {
             printf("Letra %c == %d vezes \n", 'a' + j, freq[j]);
@@ -77,3 +78,4 @@ void preencher_lista(int *freq, TLinkedList *lista) {
         insert_orden(lista, ' ', freq[26]);
     }
 }
+
