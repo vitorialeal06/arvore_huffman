@@ -115,42 +115,6 @@ void imprimir_arvore(TNo* raiz, int tamanho){
 
 }
 
-void generate_codes(TNo *no, char *code, int depth, char *codes[27]) {
-    if (no == NULL) return;
-    if (no->left == NULL && no->right == NULL && no->caractere != '\0') {
-        code[depth] = '\0';
-        int index = (no->caractere == ' ') ? 26 : no->caractere - 'a';
-        codes[index] = strdup(code);
-        return;
-    }
-    if (no->left) {
-        code[depth] = '0';
-        generate_codes(no->left, code, depth + 1, codes);
-    }
-    if (no->right) {
-        code[depth] = '1';
-        generate_codes(no->right, code, depth + 1, codes);
-    }
-}
-
-char* encode_string(char *entrada, char *codes[27]) {
-    int tamanho = strlen(entrada);
-    char *encoded = (char *)malloc(tamanho * 8 + 1);
-    if (encoded == NULL) {
-        printf("Erro ao alocar memória para codificação.\n");
-        exit(1);
-    }
-    encoded[0] = '\0';
-    for (int i = 0; i < tamanho; i++) {
-        char c = tolower(entrada[i]);
-        int index = (c == ' ') ? 26 : c - 'a';
-        if (codes[index]) {
-            strcat(encoded, codes[index]);
-        }
-    }
-    return encoded;
-}
-
 //dicionario
 
 int altura_arvore(TNo* raiz){
@@ -227,6 +191,43 @@ char* codificar(char **dicionario, char *texto){
         i++;
     }
     return codigo;
+}
+
+
+void generate_codes(TNo *no, char *code, int depth, char *codes[27]) {
+    if (no == NULL) return;
+    if (no->left == NULL && no->right == NULL && no->caractere != '\0') {
+        code[depth] = '\0';
+        int index = (no->caractere == ' ') ? 26 : no->caractere - 'a';
+        codes[index] = strdup(code);
+        return;
+    }
+    if (no->left) {
+        code[depth] = '0';
+        generate_codes(no->left, code, depth + 1, codes);
+    }
+    if (no->right) {
+        code[depth] = '1';
+        generate_codes(no->right, code, depth + 1, codes);
+    }
+}
+
+char* encode_string(char *entrada, char *codes[27]) {
+    int tamanho = strlen(entrada);
+    char *encoded = (char *)malloc(tamanho * 8 + 1);
+    if (encoded == NULL) {
+        printf("Erro ao alocar memória para codificação.\n");
+        exit(1);
+    }
+    encoded[0] = '\0';
+    for (int i = 0; i < tamanho; i++) {
+        char c = tolower(entrada[i]);
+        int index = (c == ' ') ? 26 : c - 'a';
+        if (codes[index]) {
+            strcat(encoded, codes[index]);
+        }
+    }
+    return encoded;
 }
 
 //decodifica
