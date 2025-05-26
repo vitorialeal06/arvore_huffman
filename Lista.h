@@ -22,7 +22,9 @@ int altura_arvore(TNo* raiz);
 void gerar_dicionario(char **dicionario, TNo* raiz, char* caminho, int colunas);
 void imprimir_dicionario(char **dicionario);
 char* codificar(char **dicionario, char *texto);
+char *decodificar(char texto[], TNo* raiz);
 char* decode_string(TNo* raiz, char* encoded);
+
 
 
 

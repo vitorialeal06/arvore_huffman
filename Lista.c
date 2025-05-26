@@ -173,7 +173,7 @@ void imprimir_dicionario(char **dicionario){
 
 //codifica
 
-int calcula_tamanho_string(char **dicionario, char *texto){
+int calcula_tamanho_string(char **dicionario, unsigned char *texto){
     int i = 0, tam = 0;
     while(texto[i] != '\0'){
         tam = tam +strlen(dicionario[texto[i]]);
@@ -192,6 +192,31 @@ char* codificar(char **dicionario, char *texto){
         i++;
     }
     return codigo;
+}
+
+//decodificacao
+
+char *decodificar(char texto[], TNo* raiz){
+    int i=0;
+    TNo* aux = raiz;
+    char temp[2];
+    char *decodificado = calloc(strlen(texto), sizeof(char));
+
+    while(texto[i] != '\0'){
+        if(texto[i] =='0')
+            aux = aux->left;
+        else
+         aux = aux->right;
+
+         if(aux->left ==NULL && aux->right ==NULL){
+            temp[0] = aux->caractere;
+            temp[1] = '/0';
+            strcat(decodificado, temp);
+            aux = raiz;
+         }
+         i++;
+    }
+    return decodificado;
 }
 
 

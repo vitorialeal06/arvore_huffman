@@ -11,6 +11,7 @@ int main() {
     TNo *arvore;
     char **dicionario;
     char* codificado;
+    char* decodificado;
 
     if (freq == NULL) 
         printf("Erro ao processar frequências.\n");
@@ -33,6 +34,11 @@ int main() {
 
     codificado = codificar(dicionario, entrada);
     printf("\n Texto codificado");
+
+    //decodificar
+
+    decodificado = decodificar(codificado, arvore);
+    printf("/n texto decodificado: %s", decodificado);
 
 
 
