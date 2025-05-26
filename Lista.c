@@ -166,7 +166,8 @@ void gerar_dicionario(char **dicionario, TNo* raiz, char* caminho, int colunas){
 void imprimir_dicionario(char **dicionario){
     printf("dicionario\n");
     for(int i=0 ;i < 27;i++){
-        printf(" %3d = %s\n", i, dicionario[i]);
+        if(strlen(dicionario[i])>0)
+            printf(" %3d = %s\n", i, dicionario[i]);
     }
 }
 
