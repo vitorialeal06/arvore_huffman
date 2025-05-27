@@ -1,22 +1,11 @@
-#include "Lista.h"
+/*#include "Lista.h"
 #include "arvore.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define TAM 256
 
-BinTree* BinTree_create() {
-    BinTree* T = malloc(sizeof(BinTree));
-    if (T) {
-        T->inicio = NULL;
-        T->tamanho = 0;
-    }
-    return T;
-}
-
-TNo* TNo_createNFill(char c, int freq) {
-    return createNfill(c, freq);
-}
 
 
 int* tabela_frequencia(char entrada[]) {
@@ -68,6 +57,22 @@ int* tabela_frequencia(char entrada[]) {
     return freq;
 }
 
+
+
+BinTree* BinTree_create() {
+    BinTree* T = malloc(sizeof(BinTree));
+    if (T) {
+        T->inicio = NULL;
+        T->tamanho = 0;
+    }
+    return T;
+}
+
+TNo* TNo_createNFill(char c, int freq) {
+    return createNfill(c, freq);
+}
+
+
 void preencher_lista(int *freq, TLinkedList *lista) {
     for (int i = 0; i < 26; i++) {
         if (freq[i] > 0) {
@@ -79,3 +84,4 @@ void preencher_lista(int *freq, TLinkedList *lista) {
     }
 }
 
+*/

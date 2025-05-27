@@ -1,9 +1,9 @@
 #include "Lista.h"
-#include "arvore.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define TAM 256
 
 typedef struct _no {
     char caractere; // 'a'-'z', ' ', ou '\0' para nós internos
@@ -39,28 +39,81 @@ TLinkedList* create() {
     return list;
 }
 
-bool insert_orden(TLinkedList* list, char c, int freq) {
-    TNo* novo = createNfill(c, freq);
-    if (novo == NULL)
-        return false;
 
-    if (list->inicio == NULL || freq < list->inicio->freq) {
-        novo->prox = list->inicio;
-        list->inicio = novo;
-    } else {
-        TNo* aux = list->inicio;
-        while (aux->prox != NULL && aux->prox->freq < freq) {
-            aux = aux->prox;
-        }
-        novo->prox = aux->prox;
-        aux->prox = novo;
+
+void tabela_frequencia(unsigned char entrada[], unsigned int tab[] ) {
+    int i=0;
+    while(entrada[i] != '\0'){
+        tab[entrada[i]]++;
     }
-
-    list->tamanho++;
-    return true;
 }
 
-TNo* remove_first(TLinkedList* list) {
+void imprimir_frequencia(unsigned int tab[]){
+    printf("Lista de frequencia\n");
+    for (int i=0;i< TAM;i++){
+        printf("%d = %d = %c\n", i, tab[i], i);
+    }
+}
+
+void insert_orden(TLinkedList* lista, TNo* no) {
+
+    //lista vazia
+    if (lista->inicio == NULL)
+        lista->inicio = no;
+       
+    //freq menor q inicio
+    else if (no-> freq < lista->inicio->freq) {
+        no->prox = lista->inicio;
+        lista->inicio = no;
+    //procurar lugar
+    } else {
+        TNo* aux = lista->inicio;
+        while (aux->prox && aux->prox->freq <= no->freq)
+            aux = aux->prox;
+        no->prox = aux->prox;
+        aux->prox = no;
+    }
+    lista->tamanho++;
+}
+
+void criar_lista(TLinkedList *lista){
+    lista->inicio = NULL;
+    lista->tamanho = 0;
+}
+
+void preencher_lista(unsigned int tab[], TLinkedList *lista) {
+    TNo* novo;
+    for (int i = 0; i < TAM; i++) {
+        if (tab[i] > 0) {
+            novo = malloc(sizeof(TNo));
+            if(novo){
+                novo->caractere = i;
+                novo->freq = tab[i];
+                novo->left = NULL;
+                novo->right = NULL;
+                novo->prox = NULL;
+                insert_orden(lista, novo);
+            }
+            else{
+                printf("erro ao alocar memoria preencher lista\n");
+                break;
+            }    
+        }
+    }
+}
+
+void imprimir_lista(TLinkedList *lista){
+    TNo* aux = lista->inicio;
+    printf("imprimindo lista ordenada");
+    while(aux){
+        printf("caracter = %c frequencia = %d\n ", aux->caractere, aux->freq);
+        aux = aux->prox;
+    }
+
+}
+
+
+TNo* remove_primeiro(TLinkedList* list) {
     if (list->inicio == NULL)
         return NULL;
     TNo* no = list->inicio;
@@ -70,6 +123,7 @@ TNo* remove_first(TLinkedList* list) {
     return no;
 }
 
+/*
 void print(TLinkedList* list) {
     if (list->inicio == NULL) {
         printf("Lista vazia.\n");
@@ -88,24 +142,29 @@ void print(TLinkedList* list) {
         aux = aux->prox;
     }
 }
+*/
 
-TNo* build_huffman_tree(TLinkedList* lista) {
+TNo* montar_arvore(TLinkedList* lista) {
     while (lista->tamanho > 1) {
-        TNo* primeiro = remove_first(lista);
-        TNo* segundo = remove_first(lista);
-        TNo* raiz = createNfill('\0', primeiro->freq + segundo->freq);
+        TNo* primeiro = remove_primeiro(lista);
+        TNo* segundo = remove_primeiro(lista);
+        TNo* raiz = malloc(sizeof(TNo));
         if (raiz == NULL) {
             printf("Erro ao alocar memória.,\n");
             exit(1);
         }
+        raiz->caractere = '+';
+        raiz->freq = primeiro->freq + segundo->freq;
         raiz->left = primeiro;
         raiz->right = segundo;
-        insert_orden(lista, '\0', raiz->freq);
+        raiz->prox = NULL;
+        insert_orden(lista, raiz);
     }
-    return remove_first(lista);
+    return lista->inicio;
 }
 
 void imprimir_arvore(TNo* raiz, int tamanho){
+    printf("Avore: \n");
     if(raiz->left == NULL && raiz->right == NULL)
         printf("\n Folha == %c Altura == %d\n", raiz->caractere, tamanho);
     else{
@@ -210,7 +269,7 @@ char *decodificar(char texto[], TNo* raiz){
 
          if(aux->left ==NULL && aux->right ==NULL){
             temp[0] = aux->caractere;
-            temp[1] = '/0';
+            temp[1] = '\0';
             strcat(decodificado, temp);
             aux = raiz;
          }

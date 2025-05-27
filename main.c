@@ -1,27 +1,30 @@
 #include "Lista.h"
-#include "arvore.h"
+//#include "arvore.h"
 #include <stdlib.h>
 #include <stdio.h>
+#define  TAM 256
 
 int main() {
     TLinkedList *lista = create(); //lista
-    char entrada[] = "o rato roeu"; //entrada
-    int *freq = tabela_frequencia(entrada); //mostrando freq
+    unsigned char entrada[] = "o rato roeu"; //entrada
+    unsigned int tab_freq[TAM];
     int colunas;
     TNo *arvore;
     char **dicionario;
     char* codificado;
     char* decodificado;
 
-    if (freq == NULL) 
-        printf("Erro ao processar frequências.\n");
-
+    //tabela freq
+    tabela_frequencia(entrada,tab_freq);
+    imprimir_frequencia(tab_freq);
+   
         //lista
-    preencher_lista(freq, lista);
-    print(lista);
+    criar_lista(lista);
+    preencher_lista(tab_freq, lista);
+    imprimir_lista(lista);
 
         //arvore
-    arvore = build_huffman_tree(lista);
+    arvore = montar_arvore(lista);
     imprimir_arvore(arvore,0);
 
         //dicionario

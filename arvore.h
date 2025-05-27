@@ -1,4 +1,4 @@
-#ifndef ARVORE_H
+/*#ifndef ARVORE_H
 #define ARVORE_H
 
 #include "Lista.h"
@@ -15,3 +15,4 @@ void preencher_lista(int *freq, TLinkedList *lista);
 int* tabela_frequencia(char entrada[]);
 
 #endif
+*/

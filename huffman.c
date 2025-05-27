@@ -1,4 +1,4 @@
-#include "huffman.h"
+/*#include "huffman.h"
 #include "Lista.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,7 +6,7 @@
 #include <ctype.h>
 
 
-/*
+
 TNo* build_huffman_tree(TLinkedList* lista) {
     while (lista->tamanho > 1) {
         TNo* left = remove_first(lista);
